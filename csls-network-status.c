@@ -93,13 +93,40 @@ void help()
 	printf("enet is clear sky linux series network test program\n========================================================\nuseing enet -tni\nuseing enet -t \n========================================================\n -t [print time]\n -n [print NIC(Network Interface controller , LAN card)]\n -i [print ip address]\n -h [print enet help]\n========================================================\nReference list\n nic-core() [https://m.blog.naver.com/cksdn788/220379995787]\n ltime(),ltimes() [https://araikuma.tistory.com/597]\n ip-addr(),boot() [https://stackoverflow.com/questions/4139405/how-can-i-get-to-know-the-ip-address-for-interfaces-in-c]\n========================================================\nlicences\n Copyright kudansul\n Development by kudansul\n========================================================\n");
 }
 /* end help() */
+/* nic-core non-lo ver */
+
+void nicnonlo()
+{
+    struct ifaddrs *addrs,*tmp;
+ 
+    getifaddrs(&addrs);
+    tmp = addrs;
+ 
+
+  //disable origen nic-core source codes
+    while (tmp)
+    {   
+            if (tmp->ifa_addr && tmp->ifa_addr->sa_family == AF_PACKET)
+            {
+		    if(strcmp(tmp->ifa_name, "lo") != 0) //'lo'를 제외한 나머지 NIC을 가져온다.
+    		{
+			printf(tmp->ifa_name);
+			break;
+    		}
+            }
+                tmp = tmp->ifa_next;
+    }   
+    freeifaddrs(addrs);
+}
+
+/* end nic-core non-lo ver*/
 
 int main( int argc, char **argv)
 {
    int   param_opt;
 
    opterr   = 0;
-   while( -1 !=( param_opt = getopt( argc, argv, "f:nithb")))
+   while( -1 !=( param_opt = getopt( argc, argv, "f:nithlb")))
    {
       switch( param_opt)
       {
