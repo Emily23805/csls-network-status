@@ -142,6 +142,8 @@ int main( int argc, char **argv)
 			  		 break;
 	  case  'b'   :  boot();
 			  		 break;
+	  case  'l'   :  nicnonlo();
+			  		 break;
       case  '?'   :  printf( "Try 'enet -h' for more information.\n", optopt);
                      break;
       }
