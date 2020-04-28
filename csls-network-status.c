@@ -187,13 +187,3 @@ int main( int argc, char **argv)
    }
    return 0;
 }
-/*
-void time()
-{
-    while (1)
-    {
-        ltime();
-        sleep(1);
-    }
-}
-*/
